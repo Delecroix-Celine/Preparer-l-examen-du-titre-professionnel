@@ -3,12 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gestion de tâches</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <form>
-  <input type="text" placeholder="Titre de la tâche">
-  <button>Ajouter</button>
+
+<header>
+  <h1>Application de gestion de tâches</h1>
+  <nav>
+    <a href="login.html">Se connecter</a>
+  </nav>
+</header>
+
+<main>
+
+<h2>Ajouter une tâche</h2>
+
+<form id="taskForm">
+
+  <label for="title">Titre de la tâche</label>
+  <input type="text" id="title" name="title" placeholder="Titre de la tâche" required>
+
+  <label for="description">Description</label>
+  <textarea id="description" name="description" placeholder="Description de la tâche"></textarea>
+
+  <button type="submit">Ajouter la tâche</button>
+
 </form>
+
+</main>
+
+<script src="app.js"></script>
+
 </body>
 </html>

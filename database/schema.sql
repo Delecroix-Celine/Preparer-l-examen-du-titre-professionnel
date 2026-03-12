@@ -1,9 +1,19 @@
-CREATE TABLE tasks (
+-- Table des utilisateurs
+CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(255),
-  description TEXT,
-  status VARCHAR(50),
-  user_id INT
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-SELECT * FROM tasks;
+-- Table des tâches
+CREATE TABLE tasks (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  status VARCHAR(50) DEFAULT 'À faire',
+  user_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

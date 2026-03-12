@@ -1,26 +1,19 @@
 const express = require("express");
-const app = express();
+const router = express.Router();
 
-app.use(express.json()); // Pour pouvoir recevoir des données JSON
-
-// Liste de tâches simulée
+// Liste simulée de tâches
 let tasks = [
   { id: 1, title: "Faire les courses", status: "À faire" },
   { id: 2, title: "Finir le projet", status: "En cours" }
 ];
 
-// Route racine
-app.get("/", (req, res) => {
-  res.send("API de gestion des tâches");
-});
-
 // GET /tasks → récupérer toutes les tâches
-app.get("/tasks", (req, res) => {
+router.get("/", (req, res) => {
   res.json(tasks);
 });
 
 // POST /tasks → ajouter une tâche
-app.post("/tasks", (req, res) => {
+router.post("/", (req, res) => {
   const { title, status } = req.body;
   const newTask = { id: tasks.length + 1, title, status: status || "À faire" };
   tasks.push(newTask);
@@ -28,11 +21,11 @@ app.post("/tasks", (req, res) => {
 });
 
 // PUT /tasks/:id → modifier une tâche
-app.put("/tasks/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   const { title, status } = req.body;
   const task = tasks.find(t => t.id === taskId);
-  if (task) {
+  if(task) {
     task.title = title || task.title;
     task.status = status || task.status;
     res.json(task);
@@ -42,13 +35,10 @@ app.put("/tasks/:id", (req, res) => {
 });
 
 // DELETE /tasks/:id → supprimer une tâche
-app.delete("/tasks/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   tasks = tasks.filter(t => t.id !== taskId);
   res.json({ message: "Tâche supprimée" });
 });
 
-// Démarrage du serveur
-app.listen(3000, () => {
-  console.log("Serveur démarré sur le port 3000");
-});
+module.exports = router;
